@@ -18,7 +18,7 @@ export default function HomePage() {
         eyebrow="Estimate in seconds"
         title="WhatsApp-ready quote calculator"
         description="Choose your bottle size, share a quantity, and see transparent pricing before you message the studio."
-        tone="navy"
+        tone="primary"
       >
         <QuoteCalculator />
       </SectionWrapper>
@@ -28,7 +28,7 @@ export default function HomePage() {
         eyebrow="Signature Offerings"
         title="Custom bottle branding for every moment"
         description="Layered concepts, premium materials, and on-brand detailing for weddings, restaurants, corporate events, and private milestones."
-        tone="surface"
+        tone="secondary"
       >
         <div className="grid gap-6 md:grid-cols-2">
           {services.map((service, index) => (
@@ -42,14 +42,14 @@ export default function HomePage() {
         eyebrow="How it works"
         title="A boutique studio workflow"
         description="We pair craft-level print techniques with concierge-level project management."
-        tone="muted"
+        tone="primary"
       >
         <div className="grid gap-8 md:grid-cols-3">
           {howItWorks.map((step) => (
-            <div key={step.number} className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-              <span className="text-sm font-semibold text-brand.aqua">{step.number}</span>
-              <h3 className="mt-4 text-xl font-semibold text-brand.deep">{step.title}</h3>
-              <p className="mt-3 text-sm text-brand.deep/70">{step.description}</p>
+            <div key={step.number} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
+              <span className="text-sm font-semibold text-[#00B4D8]">{step.number}</span>
+              <h3 className="mt-4 text-lg font-semibold">{step.title}</h3>
+              <p className="mt-3 text-sm text-slate-300">{step.description}</p>
             </div>
           ))}
         </div>
@@ -59,16 +59,16 @@ export default function HomePage() {
         eyebrow="Label Architectures"
         title="Three bottle sizes. Endless narratives."
         description="Waterproof vinyl, invisible seams, and meticulously aligned trims that feel as good as they look."
-        tone="surface"
+        tone="secondary"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {labelSizes.map((size) => (
-            <div key={size.name} className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow">
-              <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{size.volume}</p>
-              <h3 className="mt-3 text-xl font-semibold text-brand.deep">{size.name}</h3>
-              <p className="mt-4 text-sm text-brand.deep/70">{size.description}</p>
-              <p className="mt-6 text-sm font-semibold text-brand.deep">{size.startingPrice}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-brand.deep/60">{size.bestFor}</p>
+            <div key={size.name} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#00B4D8]">{size.volume}</p>
+              <h3 className="mt-3 text-xl font-semibold">{size.name}</h3>
+              <p className="mt-4 text-sm text-slate-300">{size.description}</p>
+              <p className="mt-6 text-sm font-semibold">{size.startingPrice}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-300">{size.bestFor}</p>
             </div>
           ))}
         </div>
@@ -78,19 +78,19 @@ export default function HomePage() {
         eyebrow="Why choose HydraTag Studio?"
         title="Local production partner Kolkata planners rely on"
         description="Every order includes tactile materials, concierge-level communication, and future-ready files."
-        tone="navy"
+        tone="primary"
       >
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map((point) => (
             <div
               key={point.title}
-              className="rounded-3xl border border-brand.deep/10 bg-white p-6 text-left shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left text-white shadow-lg backdrop-blur-md transition-transform duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
             >
               <span className="text-3xl" aria-hidden>
                 {point.icon}
               </span>
-              <h3 className="mt-4 text-xl font-semibold text-brand.deep">{point.title}</h3>
-              <p className="mt-3 text-sm text-brand.deep/70">{point.description}</p>
+              <h3 className="mt-4 text-lg font-semibold">{point.title}</h3>
+              <p className="mt-3 text-sm text-slate-300">{point.description}</p>
             </div>
           ))}
         </div>
@@ -100,11 +100,11 @@ export default function HomePage() {
         eyebrow="Portfolio"
         title="Recent pours & poursuits"
         description="A quick look at weddings, chef tables, and summits we have hydrated."
-        tone="surface"
+        tone="secondary"
       >
         <PortfolioGrid items={portfolioItems} />
         <div className="mt-8 text-right">
-          <Button href="/portfolio" variant="ghost">
+          <Button href="/portfolio" variant="secondary">
             View Full Portfolio
           </Button>
         </div>
@@ -114,20 +114,20 @@ export default function HomePage() {
         eyebrow="Testimonials"
         title="Attention to detail noticed by guests"
         description="From intimate affairs to corporate summits, teams lean on HydraTag for elevated hydration touchpoints."
-        tone="muted"
+        tone="primary"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.author} className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-              <p className="text-base text-brand.deep/80">“{testimonial.quote}”</p>
-              <p className="mt-4 text-sm font-semibold text-brand.deep">{testimonial.author}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-brand.deep/60">{testimonial.role}</p>
+            <div key={testimonial.author} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
+              <p className="text-base text-slate-200">“{testimonial.quote}”</p>
+              <p className="mt-4 text-sm font-semibold">{testimonial.author}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-300">{testimonial.role}</p>
             </div>
           ))}
         </div>
       </SectionWrapper>
 
-      <SectionWrapper className="pt-0" tone="navy">
+      <SectionWrapper className="pt-0" tone="secondary">
         <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0c2342] via-[#081530] to-[#030b1c] px-8 py-16 text-white shadow-2xl">
           <div className="floating-shape -left-20 top-0 h-64 w-64 bg-[#00B4D8]/25" />
           <div className="floating-shape bottom-0 right-0 h-64 w-64 bg-white/10" />

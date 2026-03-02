@@ -31,8 +31,8 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
               key={category}
               className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                 activeFilter === category
-                  ? "border-brand.deep bg-brand.deep text-white"
-                  : "border-brand.deep/20 text-brand.deep/70 hover:border-brand.deep/60"
+                  ? "border-white/60 bg-white/10 text-white shadow"
+                  : "border-white/20 text-slate-300 hover:border-white/40 hover:text-white"
               }`}
               onClick={() => setActiveFilter(category)}
             >
@@ -51,7 +51,7 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
             className="text-left"
             onClick={() => setActiveItem(item)}
           >
-            <div className="group overflow-hidden rounded-2xl border border-brand.deep/10 shadow-sm">
+            <div className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg backdrop-blur">
               <div className="relative h-64 w-full">
                 <Image
                   src={item.image}
@@ -61,18 +61,18 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   loading="lazy"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-brand.deep/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="pointer-events-none absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <div className="flex h-full flex-col justify-end gap-1 p-4 text-sm text-white">
-                    <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{item.eventType}</p>
+                    <p className="text-xs uppercase tracking-[0.3em] text-[#00B4D8]">{item.eventType}</p>
                     <p className="font-medium">{item.clientType}</p>
                     <p className="text-white/80">{item.quantity.toLocaleString()} bottles</p>
                   </div>
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{item.category}</p>
-                <h3 className="mt-2 text-lg font-semibold text-brand.deep">{item.title}</h3>
-                <p className="mt-2 text-sm text-brand.deep/70">{item.description}</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-[#00B4D8]">{item.category}</p>
+                <h3 className="mt-2 text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 text-sm text-slate-300">{item.description}</p>
               </div>
             </div>
           </motion.button>
@@ -89,7 +89,7 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
             onClick={() => setActiveItem(null)}
           >
             <motion.div
-              className="w-full max-w-3xl overflow-hidden rounded-3xl bg-white"
+              className="w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-[#020b18] text-white"
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 40, opacity: 0 }}
@@ -100,15 +100,15 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
                 <Image src={activeItem.image} alt={activeItem.title} fill className="object-cover" loading="lazy" />
               </div>
               <div className="p-8">
-                <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{activeItem.category}</p>
-                <h3 className="mt-3 text-2xl font-semibold text-brand.deep">{activeItem.title}</h3>
-                <p className="mt-4 text-base text-brand.deep/80">{activeItem.description}</p>
-                <div className="mt-4 flex flex-wrap gap-4 text-sm text-brand.deep/70">
+                <p className="text-xs uppercase tracking-[0.3em] text-[#00B4D8]">{activeItem.category}</p>
+                <h3 className="mt-3 text-2xl font-semibold text-white">{activeItem.title}</h3>
+                <p className="mt-4 text-base text-slate-200">{activeItem.description}</p>
+                <div className="mt-4 flex flex-wrap gap-4 text-sm text-slate-300">
                   <span>Event: {activeItem.eventType}</span>
                   <span>Client: {activeItem.clientType}</span>
                   <span>Qty: {activeItem.quantity.toLocaleString()} bottles</span>
                 </div>
-                <button className="mt-6 text-sm font-semibold text-brand.deep" onClick={() => setActiveItem(null)}>
+                <button className="mt-6 text-sm font-semibold text-white" onClick={() => setActiveItem(null)}>
                   Close
                 </button>
               </div>
