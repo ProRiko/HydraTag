@@ -51,15 +51,23 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
             className="text-left"
             onClick={() => setActiveItem(item)}
           >
-            <div className="overflow-hidden rounded-2xl border border-brand.deep/10 shadow-sm">
+            <div className="group overflow-hidden rounded-2xl border border-brand.deep/10 shadow-sm">
               <div className="relative h-64 w-full">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="lazy"
                 />
+                <div className="pointer-events-none absolute inset-0 bg-brand.deep/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <div className="flex h-full flex-col justify-end gap-1 p-4 text-sm text-white">
+                    <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{item.eventType}</p>
+                    <p className="font-medium">{item.clientType}</p>
+                    <p className="text-white/80">{item.quantity.toLocaleString()} bottles</p>
+                  </div>
+                </div>
               </div>
               <div className="p-5">
                 <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{item.category}</p>
@@ -82,18 +90,24 @@ export function PortfolioGrid({ items, enableFilters = true, limit }: PortfolioG
           >
             <motion.div
               className="w-full max-w-3xl overflow-hidden rounded-3xl bg-white"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 40, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 120, damping: 18 }}
               onClick={(event) => event.stopPropagation()}
             >
               <div className="relative h-80 w-full">
-                <Image src={activeItem.image} alt={activeItem.title} fill className="object-cover" />
+                <Image src={activeItem.image} alt={activeItem.title} fill className="object-cover" loading="lazy" />
               </div>
               <div className="p-8">
                 <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{activeItem.category}</p>
                 <h3 className="mt-3 text-2xl font-semibold text-brand.deep">{activeItem.title}</h3>
                 <p className="mt-4 text-base text-brand.deep/80">{activeItem.description}</p>
+                <div className="mt-4 flex flex-wrap gap-4 text-sm text-brand.deep/70">
+                  <span>Event: {activeItem.eventType}</span>
+                  <span>Client: {activeItem.clientType}</span>
+                  <span>Qty: {activeItem.quantity.toLocaleString()} bottles</span>
+                </div>
                 <button className="mt-6 text-sm font-semibold text-brand.deep" onClick={() => setActiveItem(null)}>
                   Close
                 </button>

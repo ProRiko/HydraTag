@@ -1,29 +1,32 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { siteConfig } from "@/lib/constants";
+import { contactDetails, siteConfig } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.tagline} | ${siteConfig.name}`,
+    default: "HydraTag Studio | Custom Bottle Label Printing in Kolkata",
     template: `%s | ${siteConfig.name}`
   },
-  description: siteConfig.description,
+  description:
+    "Premium custom water bottle label printing for weddings, restaurants, and corporate events in Kolkata. Waterproof vinyl labels with fast delivery.",
   keywords: [
-    "HydraTag Studio",
-    "water bottle labels",
-    "Kolkata branding",
-    "wedding bottle labels",
-    "event branding"
+    "Kolkata bottle label printing",
+    "custom water bottle labels",
+    "wedding bottle labels India",
+    "restaurant branding Kolkata",
+    "corporate event hydration"
   ],
   openGraph: {
-    title: `${siteConfig.tagline} | ${siteConfig.name}`,
-    description: siteConfig.description,
+    title: "HydraTag Studio | Custom Bottle Label Printing in Kolkata",
+    description:
+      "Premium custom water bottle label printing for weddings, restaurants, and corporate events in Kolkata. Waterproof vinyl labels with fast delivery.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     type: "website",
@@ -39,9 +42,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.tagline} | ${siteConfig.name}`,
-    description: siteConfig.description,
+    title: "HydraTag Studio | Custom Bottle Label Printing in Kolkata",
+    description:
+      "Premium custom water bottle label printing for weddings, restaurants, and corporate events in Kolkata. Waterproof vinyl labels with fast delivery.",
     images: ["/og-cover.svg"]
+  },
+  alternates: {
+    canonical: siteConfig.url
   },
   icons: {
     icon: "/favicon.svg"
@@ -49,12 +56,47 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: siteConfig.name,
+    description: metadata.description,
+    url: siteConfig.url,
+    image: `${siteConfig.url}/og-cover.svg`,
+    telephone: contactDetails.phone,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: siteConfig.city,
+      addressRegion: siteConfig.region,
+      addressCountry: siteConfig.country
+    },
+    areaServed: {
+      "@type": "City",
+      name: siteConfig.city
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.latitude,
+      longitude: siteConfig.geo.longitude
+    },
+    sameAs: [siteConfig.whatsapp],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Service",
+      telephone: contactDetails.phone,
+      email: contactDetails.email
+    }
+  };
+
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-brand.mist text-brand.deep">
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <Script id="hydratag-localbusiness" type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </Script>
       </body>
     </html>
   );

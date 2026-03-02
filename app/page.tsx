@@ -3,7 +3,8 @@ import { SectionWrapper } from "@/components/SectionWrapper";
 import { ServiceCard } from "@/components/ServiceCard";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { Button } from "@/components/Button";
-import { howItWorks, labelSizes, portfolioItems, services, testimonials } from "@/lib/constants";
+import { QuoteCalculator } from "@/components/QuoteCalculator";
+import { howItWorks, labelSizes, portfolioItems, services, testimonials, trustPoints, siteConfig } from "@/lib/constants";
 
 export default function HomePage() {
   return (
@@ -11,6 +12,15 @@ export default function HomePage() {
       <div className="container pt-12">
         <Hero />
       </div>
+
+      <SectionWrapper
+        id="instant-quote"
+        eyebrow="Estimate in seconds"
+        title="WhatsApp-ready quote calculator"
+        description="Choose your bottle size, share a quantity, and see transparent pricing before you message the studio."
+      >
+        <QuoteCalculator />
+      </SectionWrapper>
 
       <SectionWrapper
         id="services"
@@ -61,11 +71,32 @@ export default function HomePage() {
       </SectionWrapper>
 
       <SectionWrapper
+        eyebrow="Why choose HydraTag Studio?"
+        title="Local production partner Kolkata planners rely on"
+        description="Every order includes tactile materials, concierge-level communication, and future-ready files."
+      >
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {trustPoints.map((point) => (
+            <div
+              key={point.title}
+              className="rounded-3xl border border-brand.deep/10 bg-white p-6 text-left shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <span className="text-3xl" aria-hidden>
+                {point.icon}
+              </span>
+              <h3 className="mt-4 text-xl font-semibold text-brand.deep">{point.title}</h3>
+              <p className="mt-3 text-sm text-brand.deep/70">{point.description}</p>
+            </div>
+          ))}
+        </div>
+      </SectionWrapper>
+
+      <SectionWrapper
         eyebrow="Portfolio"
         title="Recent pours & poursuits"
         description="A quick look at weddings, chef tables, and summits we have hydrated."
       >
-        <PortfolioGrid items={portfolioItems} enableFilters={false} limit={3} />
+        <PortfolioGrid items={portfolioItems} />
         <div className="mt-8 text-right">
           <Button href="/portfolio" variant="ghost">
             View Full Portfolio
@@ -96,13 +127,18 @@ export default function HomePage() {
             <p className="text-xs uppercase tracking-[0.4em] text-white/60">CTA</p>
             <h3 className="mt-4 text-3xl font-semibold">Ready to elevate your event?</h3>
             <p className="mt-4 text-base text-white/80">
-              Share your Pinterest board, mood references, or existing artwork. We will translate it into premium,
-              waterproof bottle labels.
+              Share your Pinterest board, menu, or brand guardrails. Our Kolkata studio translates them into premium,
+              waterproof bottle labels with WhatsApp-first updates.
             </p>
             <div className="mt-8">
-              <Button href="/contact" variant="secondary">
-                Contact Us
-              </Button>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Button href="/contact" variant="secondary">
+                  Contact Us
+                </Button>
+                <Button href={siteConfig.whatsapp} variant="primary" target="_blank" rel="noreferrer">
+                  Chat on WhatsApp
+                </Button>
+              </div>
             </div>
           </div>
         </div>

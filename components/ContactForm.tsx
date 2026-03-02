@@ -12,6 +12,7 @@ interface ContactFormValues {
   eventType: string;
   quantity: number;
   message: string;
+  contactMethod: "WhatsApp" | "Phone" | "Email";
 }
 
 export function ContactForm() {
@@ -20,7 +21,9 @@ export function ContactForm() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<ContactFormValues>();
+  } = useForm<ContactFormValues>({
+    defaultValues: { contactMethod: "WhatsApp" }
+  });
   const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (values: ContactFormValues) => {
@@ -58,10 +61,16 @@ export function ContactForm() {
             <input
               type="email"
               className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
-              {...register("email", { required: "Email lets us share proofs.", pattern: /\S+@\S+\.\S+/ })}
+              {...register("email", {
+                required: "Email lets us share proofs.",
+                pattern: {
+                  value: /\S+@\S+\.\S+/, // basic safeguard before server validation
+                  message: "Please enter a valid email."
+                }
+              })}
               placeholder="you@email.com"
             />
-            {errors.email && <p className="mt-1 text-xs text-red-500">Please enter a valid email.</p>}
+            {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
           </div>
         </div>
 
@@ -91,6 +100,29 @@ export function ContactForm() {
             />
             {errors.quantity && <p className="mt-1 text-xs text-red-500">Minimum order starts at 50 labels.</p>}
           </div>
+        </div>
+
+        <div>
+          <p className="text-sm font-medium text-brand.deep">Preferred contact method *</p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            {["WhatsApp", "Phone", "Email"].map((method) => (
+              <label
+                key={method}
+                className="flex cursor-pointer items-center gap-2 rounded-2xl border border-brand.deep/20 bg-white px-4 py-2 text-sm text-brand.deep/80"
+              >
+                <input
+                  type="radio"
+                  value={method}
+                  className="accent-brand.aqua"
+                  {...register("contactMethod", { required: true })}
+                />
+                {method}
+              </label>
+            ))}
+          </div>
+          {errors.contactMethod && (
+            <p className="mt-1 text-xs text-red-500">Let us know the best way to reach you.</p>
+          )}
         </div>
 
         <div>
