@@ -48,6 +48,9 @@ export function Hero() {
               Chat on WhatsApp
             </Button>
           </div>
+          <p className="mt-4 text-sm text-white/70">
+            Minimum order: 100 labels | Fast delivery across Kolkata
+          </p>
         </motion.div>
 
         <motion.div

@@ -4,8 +4,18 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { Button } from "@/components/Button";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
+import { FaqSection } from "@/components/FaqSection";
 import { siteConfig } from "@/lib/constants";
-import { howItWorks, labelSizes, portfolioItems, services, testimonials, trustPoints } from "@/lib/data";
+import {
+  authorityHighlights,
+  faqItems,
+  howItWorks,
+  labelSizes,
+  portfolioItems,
+  services,
+  testimonials,
+  trustPoints
+} from "@/lib/data";
 
 export default function HomePage() {
   return (
@@ -13,6 +23,30 @@ export default function HomePage() {
       <div className="container pt-12">
         <Hero />
       </div>
+
+      <SectionWrapper
+        eyebrow="Authority"
+        title="Trusted Branding Partner for Events Across Kolkata"
+        description="HydraTag Studio is a professional micro-branding partner focused on waterproof bottle label printing for weddings, restaurants, and corporate events that need concierge-level detail."
+        tone="secondary"
+      >
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {authorityHighlights.map((highlight) => (
+            <div
+              key={highlight.title}
+              className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 text-white shadow-lg backdrop-blur-lg"
+            >
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-2xl" aria-hidden>
+                {highlight.icon}
+              </span>
+              <div>
+                <p className="text-base font-semibold">{highlight.title}</p>
+                <p className="mt-1 text-sm text-white/70">{highlight.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </SectionWrapper>
 
       <SectionWrapper
         id="instant-quote"
@@ -128,21 +162,30 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
+      <SectionWrapper
+        eyebrow="FAQ"
+        title="Answers for planners on a deadline"
+        description="Quick clarity on waterproof materials, order minimums, and delivery timelines so you can confirm HydraTag Studio as your bottle branding partner."
+        tone="secondary"
+      >
+        <FaqSection items={faqItems} />
+      </SectionWrapper>
+
       <SectionWrapper className="pt-0" tone="secondary">
         <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0c2342] via-[#081530] to-[#030b1c] px-8 py-16 text-white shadow-2xl">
           <div className="floating-shape -left-20 top-0 h-64 w-64 bg-[#00B4D8]/25" />
           <div className="floating-shape bottom-0 right-0 h-64 w-64 bg-white/10" />
           <div className="relative z-10">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">CTA</p>
-            <h3 className="mt-4 text-3xl font-semibold">Ready to elevate your event?</h3>
+            <p className="text-xs uppercase tracking-[0.4em] text-white/60">Next Step</p>
+            <h3 className="mt-4 text-3xl font-semibold">Ready to Brand Your Event?</h3>
             <p className="mt-4 text-base text-white/80">
-              Share your Pinterest board, menu, or brand guardrails. Our Kolkata studio translates them into premium,
-              waterproof bottle labels with WhatsApp-first updates.
+              Get custom waterproof bottle labels designed and delivered in 3–5 days. Share your mood board and we’ll
+              return proofs, pricing, and delivery updates the same day.
             </p>
             <div className="mt-8">
               <div className="flex flex-col gap-4 sm:flex-row">
                 <Button href="/contact" variant="secondary">
-                  Contact Us
+                  Get Quote
                 </Button>
                 <Button
                   href={siteConfig.whatsapp}

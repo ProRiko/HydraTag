@@ -46,6 +46,17 @@ export type TrustPoint = {
   icon: string;
 };
 
+export type AuthorityHighlight = {
+  title: string;
+  description: string;
+  icon: string;
+};
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type QuoteBottleOption = {
   label: string;
   size: string;
@@ -63,6 +74,7 @@ export const siteConfig = {
   description: "Premium custom water bottle label branding studio based in Kolkata, India.",
   url: "https://hydratag.studio",
   whatsapp: "https://wa.me/919999999999",
+  instagram: "https://instagram.com/hydratagstudio",
   city: "Kolkata",
   region: "West Bengal",
   country: "India",
@@ -86,5 +98,6 @@ export const contactDetails = {
   email: "hello@hydratag.studio",
   phone: "+91 98300 00000",
   address: "Kolkata, India",
-  whatsappNumber: "+91 98300 00000"
+  whatsappNumber: "+91 98300 00000",
+  hours: "Mon–Sat · 10am – 7pm IST"
 };

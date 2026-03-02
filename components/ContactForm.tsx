@@ -28,6 +28,9 @@ export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
+  const inputClasses =
+    "mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-brand.aqua focus:outline-none focus:ring-2 focus:ring-brand.aqua/40";
+
   const sanitizeInput = (value: string) => value.replace(/[<>]/g, "").trim();
 
   const onSubmit = async (values: ContactFormValues) => {
@@ -63,81 +66,81 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl border border-brand.deep/10 bg-white/90 p-8 shadow-lg">
+    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-2xl">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
-          <label className="text-sm font-medium text-brand.deep">Name *</label>
+          <label className="text-sm font-medium text-white/80">Name *</label>
           <input
-            className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
+            className={inputClasses}
             {...register("name", { required: "Please let us know who to call." })}
             placeholder="Your full name"
           />
-          {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+          {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
           <div>
-            <label className="text-sm font-medium text-brand.deep">Phone *</label>
+            <label className="text-sm font-medium text-white/80">Phone *</label>
             <input
-              className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
+              className={inputClasses}
               {...register("phone", { required: "Phone number helps us confirm delivery windows." })}
               placeholder="+91 98xxx xxxx"
             />
-            {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
+            {errors.phone && <p className="mt-1 text-xs text-red-400">{errors.phone.message}</p>}
           </div>
           <div>
-            <label className="text-sm font-medium text-brand.deep">Email *</label>
+            <label className="text-sm font-medium text-white/80">Email *</label>
             <input
               type="email"
-              className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
+              className={inputClasses}
               {...register("email", {
                 required: "Email lets us share proofs.",
                 pattern: {
-                  value: /\S+@\S+\.\S+/, // basic safeguard before server validation
+                  value: /\S+@\S+\.\S+/,
                   message: "Please enter a valid email."
                 }
               })}
               placeholder="you@email.com"
             />
-            {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+            {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
           </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
           <div>
-            <label className="text-sm font-medium text-brand.deep">Event Type *</label>
+            <label className="text-sm font-medium text-white/80">Event Type *</label>
             <select
-              className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
+              className="mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white focus:border-brand.aqua focus:outline-none focus:ring-2 focus:ring-brand.aqua/40"
               {...register("eventType", { required: true })}
             >
               <option value="">Select an event</option>
               {eventTypes.map((type) => (
-                <option key={type} value={type}>
+                <option key={type} value={type} className="text-brand.deep">
                   {type}
                 </option>
               ))}
             </select>
-            {errors.eventType && <p className="mt-1 text-xs text-red-500">Please choose an event type.</p>}
+            {errors.eventType && <p className="mt-1 text-xs text-red-400">Please choose an event type.</p>}
           </div>
           <div>
-            <label className="text-sm font-medium text-brand.deep">Quantity *</label>
+            <label className="text-sm font-medium text-white/80">Quantity *</label>
             <input
               type="number"
-              className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
+              className={inputClasses}
               {...register("quantity", { required: true, min: 50, valueAsNumber: true })}
               placeholder="e.g. 300"
             />
-            {errors.quantity && <p className="mt-1 text-xs text-red-500">Minimum order starts at 50 labels.</p>}
+            {errors.quantity && <p className="mt-1 text-xs text-red-400">Minimum order starts at 50 labels.</p>}
           </div>
         </div>
 
         <div>
-          <p className="text-sm font-medium text-brand.deep">Preferred contact method *</p>
+          <p className="text-sm font-medium text-white/80">Preferred contact method *</p>
           <div className="mt-3 flex flex-wrap gap-3">
             {["WhatsApp", "Phone", "Email"].map((method) => (
               <label
                 key={method}
-                className="flex cursor-pointer items-center gap-2 rounded-2xl border border-brand.deep/20 bg-white px-4 py-2 text-sm text-brand.deep/80"
+                className="flex cursor-pointer items-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-2 text-sm text-white/80"
               >
                 <input
                   type="radio"
@@ -150,19 +153,19 @@ export function ContactForm() {
             ))}
           </div>
           {errors.contactMethod && (
-            <p className="mt-1 text-xs text-red-500">Let us know the best way to reach you.</p>
+            <p className="mt-1 text-xs text-red-400">Let us know the best way to reach you.</p>
           )}
         </div>
 
         <div>
-          <label className="text-sm font-medium text-brand.deep">Message *</label>
+          <label className="text-sm font-medium text-white/80">Message *</label>
           <textarea
-            className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
+            className={`${inputClasses} resize-none`}
             rows={4}
             placeholder="Share notes about colors, venue, delivery dates..."
             {...register("message", { required: true })}
           />
-          {errors.message && <p className="mt-1 text-xs text-red-500">Tell us a bit about your idea.</p>}
+          {errors.message && <p className="mt-1 text-xs text-red-400">Tell us a bit about your idea.</p>}
         </div>
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
@@ -172,13 +175,13 @@ export function ContactForm() {
         {serverError && <p className="text-center text-sm text-red-400">{serverError}</p>}
 
         {submitted && (
-          <p className="text-center text-sm text-brand.deep/80">
+          <p className="text-center text-sm text-white/80">
             Thank you! The studio will respond within one business day.
           </p>
         )}
       </form>
 
-      <div className="mt-8 rounded-2xl border border-brand.deep/10 bg-brand.mist px-6 py-5 text-sm text-brand.deep/80">
+      <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-sm text-white/75 backdrop-blur-xl">
         <p>
           Prefer WhatsApp? Tap the floating button or message us at <strong>{siteConfig.whatsapp.replace("https://", "")}</strong>.
         </p>

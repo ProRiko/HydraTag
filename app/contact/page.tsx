@@ -20,9 +20,9 @@ export default function ContactPage() {
       >
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <ContactForm />
-          <div className="rounded-3xl border border-brand.deep/10 bg-white/90 p-8 shadow-sm">
-            <h3 className="text-xl font-semibold text-brand.deep">Studio contact</h3>
-            <div className="mt-6 space-y-4 text-sm text-brand.deep/80">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-2xl">
+            <h3 className="text-xl font-semibold text-white">Studio contact</h3>
+            <div className="mt-6 space-y-4 text-sm text-white/75">
               <p>
                 <strong>Email</strong>
                 <br />
@@ -39,9 +39,9 @@ export default function ContactPage() {
                 {contactDetails.address}
               </p>
             </div>
-            <div className="mt-8 rounded-2xl bg-brand.deep/5 p-4 text-sm text-brand.deep/80">
-              <p className="font-semibold text-brand.deep">Production windows</p>
-              <p className="mt-2">Proofs: 48 hours • Production: 5-7 business days • Pan-India delivery available.</p>
+            <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75">
+              <p className="font-semibold text-white">Production windows</p>
+              <p className="mt-2 text-white/70">Proofs: 48 hours • Production: 5-7 business days • Pan-India delivery available.</p>
             </div>
             <div className="mt-8">
               <Button href="tel:+919830000000" variant="ghost">

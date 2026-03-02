@@ -1,4 +1,6 @@
 import type {
+  AuthorityHighlight,
+  FaqItem,
   LabelSize,
   PortfolioItem,
   PrintingOption,
@@ -201,4 +203,59 @@ export const quoteBottleOptions: QuoteBottleOption[] = [
   { label: "250 ml — Boutique", size: "250ml" },
   { label: "500 ml — Signature", size: "500ml" },
   { label: "1 L — Statement", size: "1L" }
+];
+
+export const authorityHighlights: AuthorityHighlight[] = [
+  {
+    title: "3–5 Day Fast Turnaround",
+    description: "Priority print queues keep your hydration touchpoints on schedule for every itinerary.",
+    icon: "⚡"
+  },
+  {
+    title: "Waterproof Vinyl Labels",
+    description: "Condensation-proof materials survive ice buckets, humid kitchens, and long service windows.",
+    icon: "💧"
+  },
+  {
+    title: "Bulk Pricing Available",
+    description: "Scaled pricing tiers for restaurants, caterers, and corporate planners ordering 300+ units.",
+    icon: "📦"
+  },
+  {
+    title: "Custom Design Included",
+    description: "Senior designers translate your brand guardrails into press-ready artwork at no extra fee.",
+    icon: "🎨"
+  },
+  {
+    title: "Serving Kolkata & Nearby Areas",
+    description: "On-ground logistics partners deliver across Kolkata plus Howrah, New Town, and Hooghly.",
+    icon: "📍"
+  }
+];
+
+export const faqItems: FaqItem[] = [
+  {
+    question: "Are the labels waterproof?",
+    answer: "Yes. We print on waterproof vinyl with protective lamination so condensation or ice buckets never smudge the artwork."
+  },
+  {
+    question: "What is the minimum order quantity?",
+    answer: "Minimum order starts at 100 labels per design. Bulk pricing kicks in from 300 units upward."
+  },
+  {
+    question: "How long does delivery take?",
+    answer: "Proof approvals happen within 24 hours and production takes 3–5 business days. Delivery within Kolkata typically lands the next day after dispatch."
+  },
+  {
+    question: "Do you supply bottles as well?",
+    answer: "We specialize in premium labels. However, we coordinate with partner bottling vendors on request if you need a bundled solution."
+  },
+  {
+    question: "Is design included in the price?",
+    answer: "Absolutely. Every order includes concepting, typography, and press-ready artwork handled by our studio team."
+  },
+  {
+    question: "Do you provide urgent delivery?",
+    answer: "Yes, rush production is available subject to slot availability. Share your event date and we’ll advise the fastest schedule."
+  }
 ];
