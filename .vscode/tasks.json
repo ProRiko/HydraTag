@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "HydraTag dev server",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"pnpm",
+				"dev"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		}
+	]
+}
