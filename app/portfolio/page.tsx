@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
-import { portfolioItems } from "@/lib/constants";
+import { portfolioItems } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Portfolio",

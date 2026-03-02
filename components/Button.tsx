@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
+import { trackEvent } from "@/lib/analytics";
 
 const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transform";
 
@@ -15,11 +16,19 @@ const variants: Record<string, string> = {
     "bg-transparent text-brand.deep border border-brand.deep/40 hover:border-brand.deep hover:bg-brand.deep/5 focus-visible:outline-brand.deep"
 };
 
+type AnalyticsMeta = {
+  category: string;
+  action: string;
+  label?: string;
+  value?: number;
+};
+
 type BaseProps = {
   variant?: keyof typeof variants;
   icon?: ReactNode;
   children: ReactNode;
   className?: string;
+  analytics?: AnalyticsMeta;
 };
 
 type ButtonOnlyProps = BaseProps &
@@ -34,22 +43,45 @@ type AnchorOnlyProps = BaseProps &
 
 type ButtonProps = ButtonOnlyProps | AnchorOnlyProps;
 
-export function Button({ children, className, variant = "primary", href, icon, ...rest }: ButtonProps) {
+export function Button({ children, className, variant = "primary", href, icon, analytics, ...rest }: ButtonProps) {
   const classes = clsx(baseStyles, variants[variant], className);
 
+  const emitAnalytics = () => {
+    if (analytics) {
+      trackEvent(analytics.category, analytics.action, analytics.label, analytics.value);
+    }
+  };
+
   if (href) {
+    const { onClick, ...anchorProps } = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
     return (
-      <Link href={href} className={classes} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}>
+      <Link
+        href={href}
+        className={classes}
+        {...anchorProps}
+        onClick={(event) => {
+          emitAnalytics();
+          onClick?.(event);
+        }}
+      >
         <span>{children}</span>
         {icon}
       </Link>
     );
   }
 
-  const { type, ...buttonRest } = rest as ButtonHTMLAttributes<HTMLButtonElement>;
+  const { type, onClick, ...buttonRest } = rest as ButtonHTMLAttributes<HTMLButtonElement>;
 
   return (
-    <button type={type ?? "button"} className={classes} {...buttonRest}>
+    <button
+      type={type ?? "button"}
+      className={classes}
+      {...buttonRest}
+      onClick={(event) => {
+        emitAnalytics();
+        onClick?.(event);
+      }}
+    >
       <span>{children}</span>
       {icon}
     </button>

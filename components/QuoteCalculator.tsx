@@ -1,41 +1,86 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { eventTypes, quoteBottleOptions, siteConfig } from "@/lib/constants";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { eventTypes, siteConfig } from "@/lib/constants";
+import { quoteBottleOptions } from "@/lib/data";
+import { trackEvent } from "@/lib/analytics";
 import { Button } from "./Button";
 
 const BASE_PRICE = 6;
+const MINIMUM_ORDER = 50;
+
+type QuoteSummary = {
+  unitPrice: number;
+  total: number;
+};
+
+const PRICING_BREAKPOINTS = [
+  { min: 2000, unitPrice: 4.5 },
+  { min: 1000, unitPrice: 5 },
+  { min: 500, unitPrice: 5.5 }
+];
 
 const getUnitPrice = (quantity: number) => {
-  if (quantity >= 2000) return 4.5;
-  if (quantity >= 1000) return 5;
-  if (quantity >= 500) return 5.5;
+  const tier = PRICING_BREAKPOINTS.find((breakpoint) => quantity >= breakpoint.min);
+  if (tier) return tier.unitPrice;
   if (quantity > 0) return BASE_PRICE;
   return 0;
 };
+
+const buildQuoteSummary = (quantity: number): QuoteSummary => {
+  const unitPrice = getUnitPrice(quantity);
+  return {
+    unitPrice,
+    total: quantity > 0 ? quantity * unitPrice : 0
+  };
+};
+
+const formatCurrency = (value: number) => (value ? `₹${value.toLocaleString("en-IN", { maximumFractionDigits: 0 })}` : "₹0");
 
 export function QuoteCalculator() {
   const [size, setSize] = useState(quoteBottleOptions[1].size);
   const [eventType, setEventType] = useState(eventTypes[0]);
   const [quantity, setQuantity] = useState(300);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const hasTrackedView = useRef(false);
 
-  const unitPrice = useMemo(() => getUnitPrice(quantity), [quantity]);
-  const estimatedTotal = useMemo(() => (quantity > 0 ? quantity * unitPrice : 0), [quantity, unitPrice]);
-  const meetsMinimum = quantity >= 50;
+  const { unitPrice, total } = useMemo(() => buildQuoteSummary(quantity), [quantity]);
+  const meetsMinimum = quantity >= MINIMUM_ORDER;
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element || hasTrackedView.current) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          hasTrackedView.current = true;
+          trackEvent("engagement", "pricing_section_viewed", "quote_calculator");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   const handleWhatsAppQuote = () => {
     if (!meetsMinimum) return;
-    const text = `Hi HydraTag Studio! I need ${quantity} labels for a ${eventType} in size ${size}. Estimated budget: ₹${estimatedTotal.toLocaleString(
-      "en-IN"
+    const text = `Hi HydraTag Studio! I need ${quantity} labels for a ${eventType} in size ${size}. Estimated budget: ${formatCurrency(
+      total
     )}. Can you confirm availability?`;
+    trackEvent("quote", "quote_calculated", `${size}-${eventType}`, total);
+    trackEvent("engagement", "whatsapp_click", "quote_calculator");
     window.open(`${siteConfig.whatsapp}?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   const formattedUnitPrice = unitPrice ? `₹${unitPrice.toFixed(1)}` : "—";
-  const formattedTotal = estimatedTotal ? `₹${estimatedTotal.toLocaleString("en-IN")}` : "₹0";
+  const formattedTotal = formatCurrency(total);
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
+    <div ref={containerRef} className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div className="w-full space-y-6 lg:w-1/2">
           <div>

@@ -4,7 +4,10 @@ import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { contactDetails, siteConfig } from "@/lib/constants";
+import { GA_MEASUREMENT_ID } from "@/lib/analytics";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -60,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: siteConfig.name,
-    description: metadata.description,
+    description: metadata.description ?? siteConfig.description,
     url: siteConfig.url,
     image: `${siteConfig.url}/og-cover.svg`,
     telephone: contactDetails.phone,
@@ -79,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       latitude: siteConfig.geo.latitude,
       longitude: siteConfig.geo.longitude
     },
+    priceRange: "₹₹",
     sameAs: [siteConfig.whatsapp],
     contactPoint: {
       "@type": "ContactPoint",
@@ -91,10 +95,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <body className="relative bg-[#050f1c] text-white antialiased">
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}', {
+                  send_page_view: false
+                });
+              `}
+            </Script>
+          </>
+        )}
         <div aria-hidden className="noise-overlay" />
         <div className="relative z-10 flex min-h-screen flex-col">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <Suspense fallback={null}>
+              <AnalyticsTracker />
+            </Suspense>
+            {children}
+          </main>
           <Footer />
         </div>
         <Script id="hydratag-localbusiness" type="application/ld+json">

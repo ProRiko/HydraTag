@@ -4,7 +4,8 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { Button } from "@/components/Button";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
-import { howItWorks, labelSizes, portfolioItems, services, testimonials, trustPoints, siteConfig } from "@/lib/constants";
+import { siteConfig } from "@/lib/constants";
+import { howItWorks, labelSizes, portfolioItems, services, testimonials, trustPoints } from "@/lib/data";
 
 export default function HomePage() {
   return (
@@ -143,7 +144,13 @@ export default function HomePage() {
                 <Button href="/contact" variant="secondary">
                   Contact Us
                 </Button>
-                <Button href={siteConfig.whatsapp} variant="primary" target="_blank" rel="noreferrer">
+                <Button
+                  href={siteConfig.whatsapp}
+                  variant="primary"
+                  target="_blank"
+                  rel="noreferrer"
+                  analytics={{ category: "engagement", action: "whatsapp_click", label: "cta_whatsapp" }}
+                >
                   Chat on WhatsApp
                 </Button>
               </div>

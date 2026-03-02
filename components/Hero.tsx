@@ -38,7 +38,13 @@ export function Hero() {
             <Button href="#instant-quote" variant="primary" className="btn-glow">
               Get Instant Quote
             </Button>
-            <Button href={siteConfig.whatsapp} variant="secondary" target="_blank" rel="noreferrer">
+            <Button
+              href={siteConfig.whatsapp}
+              variant="secondary"
+              target="_blank"
+              rel="noreferrer"
+              analytics={{ category: "engagement", action: "whatsapp_click", label: "hero_whatsapp" }}
+            >
               Chat on WhatsApp
             </Button>
           </div>

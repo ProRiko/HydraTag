@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { Button } from "@/components/Button";
-import { labelSizes, printingOptions, siteConfig } from "@/lib/constants";
+import { labelSizes, printingOptions } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Services",

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { eventTypes, siteConfig } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 import { Button } from "./Button";
 
 interface ContactFormValues {
@@ -25,12 +26,40 @@ export function ContactForm() {
     defaultValues: { contactMethod: "WhatsApp" }
   });
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
+  const sanitizeInput = (value: string) => value.replace(/[<>]/g, "").trim();
 
   const onSubmit = async (values: ContactFormValues) => {
-    console.log("HydraTag contact form submission", values);
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    setSubmitted(true);
-    reset();
+    setServerError(null);
+    const payload = {
+      ...values,
+      name: sanitizeInput(values.name),
+      phone: sanitizeInput(values.phone),
+      email: sanitizeInput(values.email),
+      eventType: sanitizeInput(values.eventType),
+      quantity: Number(values.quantity),
+      message: sanitizeInput(values.message)
+    };
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Lead capture failed");
+      }
+
+      trackEvent("lead", "form_submitted", payload.eventType);
+      setSubmitted(true);
+      reset({ contactMethod: "WhatsApp" });
+    } catch (error) {
+      console.error("Lead submission error", error);
+      setServerError("Something went wrong. Please retry or message us on WhatsApp.");
+    }
   };
 
   return (
@@ -95,7 +124,7 @@ export function ContactForm() {
             <input
               type="number"
               className="mt-2 w-full rounded-2xl border border-brand.deep/20 bg-white px-4 py-3 text-sm focus:border-brand.deep focus:outline-none"
-              {...register("quantity", { required: true, min: 50 })}
+              {...register("quantity", { required: true, min: 50, valueAsNumber: true })}
               placeholder="e.g. 300"
             />
             {errors.quantity && <p className="mt-1 text-xs text-red-500">Minimum order starts at 50 labels.</p>}
@@ -139,6 +168,8 @@ export function ContactForm() {
         <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Sending..." : "Send Request"}
         </Button>
+
+        {serverError && <p className="text-center text-sm text-red-400">{serverError}</p>}
 
         {submitted && (
           <p className="text-center text-sm text-brand.deep/80">
