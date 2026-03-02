@@ -90,10 +90,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en" className={inter.variable}>
-      <body className="bg-brand.mist text-brand.deep">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+      <body className="relative bg-[#050f1c] text-white antialiased">
+        <div aria-hidden className="noise-overlay" />
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
         <Script id="hydratag-localbusiness" type="application/ld+json">
           {JSON.stringify(structuredData)}
         </Script>

@@ -4,15 +4,15 @@ import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
 
-const baseStyles = "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transform";
 
 const variants: Record<string, string> = {
   primary:
-    "bg-brand.aqua text-brand.deep hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand.aqua/40 focus-visible:outline-brand.aqua",
+    "bg-[#00B4D8] text-[#031526] shadow-lg shadow-[#00B4D8]/40 hover:bg-[#0096C7] hover:shadow-[#0096C7]/40 hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline-[#00B4D8]",
   secondary:
-    "bg-white/10 text-white border border-white/20 hover:bg-white/20 focus-visible:outline-white",
+    "border border-white/30 bg-transparent text-white shadow-inner hover:border-white/60 hover:bg-white/10 focus-visible:outline-white/60",
   ghost:
-    "bg-transparent text-brand.deep border border-brand.deep/30 hover:border-brand.deep hover:bg-brand.deep/5 focus-visible:outline-brand.deep"
+    "bg-transparent text-brand.deep border border-brand.deep/40 hover:border-brand.deep hover:bg-brand.deep/5 focus-visible:outline-brand.deep"
 };
 
 type BaseProps = {

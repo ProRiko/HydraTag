@@ -18,6 +18,7 @@ export default function HomePage() {
         eyebrow="Estimate in seconds"
         title="WhatsApp-ready quote calculator"
         description="Choose your bottle size, share a quantity, and see transparent pricing before you message the studio."
+        tone="navy"
       >
         <QuoteCalculator />
       </SectionWrapper>
@@ -27,6 +28,7 @@ export default function HomePage() {
         eyebrow="Signature Offerings"
         title="Custom bottle branding for every moment"
         description="Layered concepts, premium materials, and on-brand detailing for weddings, restaurants, corporate events, and private milestones."
+        tone="surface"
       >
         <div className="grid gap-6 md:grid-cols-2">
           {services.map((service, index) => (
@@ -40,6 +42,7 @@ export default function HomePage() {
         eyebrow="How it works"
         title="A boutique studio workflow"
         description="We pair craft-level print techniques with concierge-level project management."
+        tone="muted"
       >
         <div className="grid gap-8 md:grid-cols-3">
           {howItWorks.map((step) => (
@@ -56,6 +59,7 @@ export default function HomePage() {
         eyebrow="Label Architectures"
         title="Three bottle sizes. Endless narratives."
         description="Waterproof vinyl, invisible seams, and meticulously aligned trims that feel as good as they look."
+        tone="surface"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {labelSizes.map((size) => (
@@ -74,6 +78,7 @@ export default function HomePage() {
         eyebrow="Why choose HydraTag Studio?"
         title="Local production partner Kolkata planners rely on"
         description="Every order includes tactile materials, concierge-level communication, and future-ready files."
+        tone="navy"
       >
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map((point) => (
@@ -95,6 +100,7 @@ export default function HomePage() {
         eyebrow="Portfolio"
         title="Recent pours & poursuits"
         description="A quick look at weddings, chef tables, and summits we have hydrated."
+        tone="surface"
       >
         <PortfolioGrid items={portfolioItems} />
         <div className="mt-8 text-right">
@@ -108,6 +114,7 @@ export default function HomePage() {
         eyebrow="Testimonials"
         title="Attention to detail noticed by guests"
         description="From intimate affairs to corporate summits, teams lean on HydraTag for elevated hydration touchpoints."
+        tone="muted"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
@@ -120,9 +127,10 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper className="pt-0">
-        <div className="relative overflow-hidden rounded-3xl bg-brand.deep px-8 py-16 text-white">
-          <div className="floating-shape -left-10 top-0 h-64 w-64 bg-brand.aqua/30" />
+      <SectionWrapper className="pt-0" tone="navy">
+        <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0c2342] via-[#081530] to-[#030b1c] px-8 py-16 text-white shadow-2xl">
+          <div className="floating-shape -left-20 top-0 h-64 w-64 bg-[#00B4D8]/25" />
+          <div className="floating-shape bottom-0 right-0 h-64 w-64 bg-white/10" />
           <div className="relative z-10">
             <p className="text-xs uppercase tracking-[0.4em] text-white/60">CTA</p>
             <h3 className="mt-4 text-3xl font-semibold">Ready to elevate your event?</h3>

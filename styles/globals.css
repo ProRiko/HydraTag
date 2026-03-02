@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --brand-deep: #0a2540;
   --brand-aqua: #00b4d8;
   --brand-mist: #f5f7fb;
@@ -19,17 +19,31 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-inter), Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #e9f1f9;
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(0, 180, 216, 0.22), transparent 48%),
-    radial-gradient(circle at 88% 12%, rgba(10, 37, 64, 0.12), transparent 42%),
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.65), transparent 65%),
-    linear-gradient(180deg, #f6f9ff 0%, #eef2f9 38%, #f3f6fb 100%);
-  background-attachment: fixed;
-  background-size: 900px 900px, 1100px 1100px, 1400px 800px, 100% 100%;
-  color: var(--brand-deep);
   min-height: 100vh;
+  font-family: var(--font-inter), Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #0a2540;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0, 180, 216, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0, 180, 216, 0.1), transparent 40%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 55%),
+    linear-gradient(180deg, #020817 0%, #04122b 55%, #0a2540 100%);
+  background-attachment: fixed;
+  background-size: 1400px 1400px, 1000px 1000px, 1800px 1200px, 100% 100%;
+  background-blend-mode: screen, screen, lighten, normal;
+  color: #eef6ff;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+  background-size: 3px 3px, 6px 6px;
+  mix-blend-mode: screen;
 }
 
 ::selection {
@@ -37,16 +51,17 @@ body {
 }
 
 .gradient-card {
-  background: linear-gradient(135deg, rgba(10, 37, 64, 0.04), rgba(0, 180, 216, 0.04));
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.08), rgba(0, 180, 216, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .btn-glow {
-  box-shadow: 0 10px 25px rgba(0, 180, 216, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 180, 216, 0.35);
 }
 
 .floating-shape {
   position: absolute;
   border-radius: 999px;
-  filter: blur(60px);
-  opacity: 0.35;
+  filter: blur(80px);
+  opacity: 0.4;
 }
