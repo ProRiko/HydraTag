@@ -1,0 +1,20 @@
+{
+  "name": "HydraTag Studio",
+  "short_name": "HydraTag",
+  "description": "Custom waterproof bottle labels designed and produced in Kolkata.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050f1c",
+  "theme_color": "#050f1c",
+  "lang": "en",
+  "categories": ["business", "events", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

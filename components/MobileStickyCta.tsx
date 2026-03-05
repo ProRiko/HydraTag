@@ -3,8 +3,8 @@ import { siteConfig } from "@/lib/constants";
 
 export function MobileStickyCta() {
   return (
-    <div className="fixed inset-x-4 bottom-4 z-40 md:hidden">
-      <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#030b16]/95 px-4 py-3 shadow-2xl backdrop-blur-2xl">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-4 md:hidden">
+      <div className="pointer-events-auto mx-auto flex max-w-xl items-center gap-3 rounded-2xl border border-white/10 bg-[#030b16]/95 px-4 py-3 shadow-2xl backdrop-blur-2xl">
         <Button
           href="#instant-quote"
           className="flex-1 justify-center text-base"

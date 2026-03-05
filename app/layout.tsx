@@ -20,6 +20,18 @@ export const metadata: Metadata = {
   },
   description:
     "Premium custom water bottle label printing for weddings, restaurants, and corporate events in Kolkata. Waterproof vinyl labels with fast delivery.",
+  manifest: "/manifest.webmanifest",
+  themeColor: "#050f1c",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    viewportFit: "cover"
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent"
+  },
   keywords: [
     "Kolkata bottle label printing",
     "custom water bottle labels",
@@ -55,7 +67,8 @@ export const metadata: Metadata = {
     canonical: siteConfig.url
   },
   icons: {
-    icon: "/favicon.svg"
+    icon: "/favicon.svg",
+    apple: "/favicon.svg"
   }
 };
 

@@ -11,6 +11,7 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -31,6 +32,12 @@ body {
   background-size: 1400px 1400px, 1000px 1000px, 1800px 1200px, 100% 100%;
   background-blend-mode: screen, screen, lighten, normal;
   color: #eef6ff;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 .noise-overlay {
@@ -64,4 +71,21 @@ body {
   border-radius: 999px;
   filter: blur(80px);
   opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size: 900px 900px, 700px 700px, 1200px 800px, 100% 100%;
+  }
+
+  .noise-overlay {
+    opacity: 0.07;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.95rem;
+  }
 }
