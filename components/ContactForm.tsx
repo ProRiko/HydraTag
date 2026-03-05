@@ -29,7 +29,7 @@ export function ContactForm() {
   const [serverError, setServerError] = useState<string | null>(null);
 
   const inputClasses =
-    "mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-brand.aqua focus:outline-none focus:ring-2 focus:ring-brand.aqua/40";
+    "mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-brand-aqua focus:outline-none focus:ring-2 focus:ring-brand-aqua/40";
 
   const sanitizeInput = (value: string) => value.replace(/[<>]/g, "").trim();
 
@@ -110,12 +110,12 @@ export function ContactForm() {
           <div>
             <label className="text-sm font-medium text-white/80">Event Type *</label>
             <select
-              className="mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white focus:border-brand.aqua focus:outline-none focus:ring-2 focus:ring-brand.aqua/40"
+              className="mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white focus:border-brand-aqua focus:outline-none focus:ring-2 focus:ring-brand-aqua/40"
               {...register("eventType", { required: true })}
             >
               <option value="">Select an event</option>
               {eventTypes.map((type) => (
-                <option key={type} value={type} className="text-brand.deep">
+                <option key={type} value={type} className="text-brand-deep">
                   {type}
                 </option>
               ))}
@@ -145,7 +145,7 @@ export function ContactForm() {
                 <input
                   type="radio"
                   value={method}
-                  className="accent-brand.aqua"
+                  className="accent-brand-aqua"
                   {...register("contactMethod", { required: true })}
                 />
                 {method}

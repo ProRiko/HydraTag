@@ -13,7 +13,7 @@ const variants: Record<string, string> = {
   secondary:
     "border border-white/30 bg-transparent text-white shadow-inner hover:border-white/60 hover:bg-white/10 focus-visible:outline-white/60",
   ghost:
-    "bg-transparent text-brand.deep border border-brand.deep/40 hover:border-brand.deep hover:bg-brand.deep/5 focus-visible:outline-brand.deep"
+    "bg-transparent text-brand-deep border border-brand-deep/40 hover:border-brand-deep hover:bg-brand-deep/5 focus-visible:outline-brand-deep"
 };
 
 type AnalyticsMeta = {

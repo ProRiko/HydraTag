@@ -25,12 +25,12 @@ export default function ServicesPage() {
       >
         <div className="grid gap-6 md:grid-cols-3">
           {labelSizes.map((size) => (
-            <div key={size.name} className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">{size.volume}</p>
-              <h3 className="mt-4 text-2xl font-semibold text-brand.deep">{size.name}</h3>
-              <p className="mt-4 text-sm text-brand.deep/80">{size.description}</p>
-              <p className="mt-6 text-sm font-semibold text-brand.deep">{size.startingPrice}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-brand.deep/60">{size.bestFor}</p>
+            <div key={size.name} className="rounded-3xl border border-brand-deep/10 bg-white p-6 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.3em] text-brand-aqua">{size.volume}</p>
+              <h3 className="mt-4 text-2xl font-semibold text-brand-deep">{size.name}</h3>
+              <p className="mt-4 text-sm text-brand-deep/80">{size.description}</p>
+              <p className="mt-6 text-sm font-semibold text-brand-deep">{size.startingPrice}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-brand-deep/60">{size.bestFor}</p>
             </div>
           ))}
         </div>
@@ -43,12 +43,12 @@ export default function ServicesPage() {
       >
         <div className="grid gap-6 md:grid-cols-2">
           {printingOptions.map((option) => (
-            <div key={option.title} className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-brand.deep">{option.title}</h3>
-              <ul className="mt-4 space-y-2 text-sm text-brand.deep/80">
+            <div key={option.title} className="rounded-3xl border border-brand-deep/10 bg-white p-6 shadow-sm">
+              <h3 className="text-xl font-semibold text-brand-deep">{option.title}</h3>
+              <ul className="mt-4 space-y-2 text-sm text-brand-deep/80">
                 {option.points.map((point) => (
                   <li key={point} className="flex items-start gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-brand.aqua" />
+                    <span className="mt-1 h-2 w-2 rounded-full bg-brand-aqua" />
                     {point}
                   </li>
                 ))}
@@ -64,25 +64,25 @@ export default function ServicesPage() {
         description="Every quote includes design collaboration, waterproof vinyl, trimming, and packing. Shipping is calculated based on location."
       >
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-brand.deep">Starting rate</h3>
-            <p className="mt-2 text-sm text-brand.deep/70">Per 100 labels</p>
-            <p className="mt-4 text-3xl font-semibold text-brand.deep">₹4,200 - ₹5,500</p>
-            <p className="mt-4 text-sm text-brand.deep/80">
+          <div className="rounded-3xl border border-brand-deep/10 bg-white p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-brand-deep">Starting rate</h3>
+            <p className="mt-2 text-sm text-brand-deep/70">Per 100 labels</p>
+            <p className="mt-4 text-3xl font-semibold text-brand-deep">₹4,200 - ₹5,500</p>
+            <p className="mt-4 text-sm text-brand-deep/80">
               Includes custom design, waterproof vinyl, and finishing.
             </p>
           </div>
-          <div className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-brand.deep">Bulk benefits</h3>
-            <ul className="mt-4 space-y-3 text-sm text-brand.deep/80">
+          <div className="rounded-3xl border border-brand-deep/10 bg-white p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-brand-deep">Bulk benefits</h3>
+            <ul className="mt-4 space-y-3 text-sm text-brand-deep/80">
               {pricingModel.map((tier) => (
                 <li key={tier.label} className="flex items-center justify-between">
                   <span>{tier.label}</span>
-                  <span className="font-semibold text-brand.deep">{tier.price}</span>
+                  <span className="font-semibold text-brand-deep">{tier.price}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs uppercase tracking-[0.3em] text-brand.aqua">
+            <p className="mt-4 text-xs uppercase tracking-[0.3em] text-brand-aqua">
               + Priority scheduling for recurring restaurant programs
             </p>
           </div>
@@ -97,8 +97,8 @@ export default function ServicesPage() {
         title="Custom design service"
         description="Send us your crest, campaign key visual, or Pinterest board. Our studio will iterate and prep press-ready files."
       >
-        <div className="rounded-3xl border border-brand.deep/10 bg-white p-8 shadow-sm">
-          <ul className="space-y-3 text-sm text-brand.deep/80">
+        <div className="rounded-3xl border border-brand-deep/10 bg-white p-8 shadow-sm">
+          <ul className="space-y-3 text-sm text-brand-deep/80">
             <li>• 2 concept rounds with a senior brand designer</li>
             <li>• Pantone, metallic, emboss, and spot-UV consultation</li>
             <li>• Ready for future Stripe payments and MongoDB-powered order tracking</li>

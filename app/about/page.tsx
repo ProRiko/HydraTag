@@ -36,9 +36,9 @@ export default function AboutPage() {
       >
         <div className="grid gap-6 md:grid-cols-2">
           {pillars.map((pillar) => (
-            <div key={pillar.title} className="rounded-3xl border border-brand.deep/10 bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-brand.deep">{pillar.title}</h3>
-              <p className="mt-3 text-sm text-brand.deep/70">{pillar.description}</p>
+            <div key={pillar.title} className="rounded-3xl border border-brand-deep/10 bg-white p-6 shadow-sm">
+              <h3 className="text-xl font-semibold text-brand-deep">{pillar.title}</h3>
+              <p className="mt-3 text-sm text-brand-deep/70">{pillar.description}</p>
             </div>
           ))}
         </div>
@@ -50,20 +50,20 @@ export default function AboutPage() {
         description="We collaborate with planners, chefs, EA teams, and hosts to design labels that hold their own in galleries, Michelin-level plating, and boardroom tables."
       >
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-brand.deep/10 bg-white p-6 text-sm text-brand.deep/80">
-            <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">Design Ops</p>
+          <div className="rounded-3xl border border-brand-deep/10 bg-white p-6 text-sm text-brand-deep/80">
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-aqua">Design Ops</p>
             <p className="mt-3">
               Editable templates, packaging-ready mockups, and modular systems make future updates effortless.
             </p>
           </div>
-          <div className="rounded-3xl border border-brand.deep/10 bg-white p-6 text-sm text-brand.deep/80">
-            <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">Scalability</p>
+          <div className="rounded-3xl border border-brand-deep/10 bg-white p-6 text-sm text-brand-deep/80">
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-aqua">Scalability</p>
             <p className="mt-3">
               Built to plug into future MongoDB-powered dashboards and Stripe-powered ordering without rework.
             </p>
           </div>
-          <div className="rounded-3xl border border-brand.deep/10 bg-white p-6 text-sm text-brand.deep/80">
-            <p className="text-xs uppercase tracking-[0.3em] text-brand.aqua">Sustainability</p>
+          <div className="rounded-3xl border border-brand-deep/10 bg-white p-6 text-sm text-brand-deep/80">
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-aqua">Sustainability</p>
             <p className="mt-3">Vegan inks, recycled backers, and carbon-neutral shipping partners by default.</p>
           </div>
         </div>

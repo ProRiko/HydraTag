@@ -13,10 +13,10 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-brand.deep/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-brand-deep/80 backdrop-blur-xl">
       <div className="container flex items-center justify-between py-4">
         <Link href="/" className="text-lg font-semibold tracking-wide text-white">
-          HydraTag <span className="text-brand.aqua">Studio</span>
+          HydraTag <span className="text-brand-aqua">Studio</span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-white/80 lg:flex">
@@ -40,7 +40,7 @@ export function Navbar() {
         </div>
 
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-brand.aqua lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-brand-aqua lg:hidden"
           onClick={() => setIsOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
@@ -62,7 +62,7 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="border-t border-white/10 bg-brand.deep/95 lg:hidden"
+            className="border-t border-white/10 bg-brand-deep/95 lg:hidden"
           >
             <div className="container flex flex-col gap-6 py-6 text-base font-medium text-white/90">
               {navLinks.map((link) => (
