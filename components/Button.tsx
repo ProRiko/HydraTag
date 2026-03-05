@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
-import { trackEvent } from "@/lib/analytics";
+import { postStudioEvent, trackEvent } from "@/lib/analytics";
 
 const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transform";
 
@@ -21,6 +21,9 @@ type AnalyticsMeta = {
   action: string;
   label?: string;
   value?: number;
+  eventId?: string;
+  type?: "click" | "impression" | "view";
+  context?: string;
 };
 
 type BaseProps = {
@@ -49,6 +52,15 @@ export function Button({ children, className, variant = "primary", href, icon, a
   const emitAnalytics = () => {
     if (analytics) {
       trackEvent(analytics.category, analytics.action, analytics.label, analytics.value);
+      postStudioEvent({
+        eventId: analytics.eventId ?? `${analytics.category}-${analytics.action}`,
+        category: analytics.category,
+        action: analytics.action,
+        label: analytics.label,
+        value: analytics.value,
+        type: analytics.type ?? "click",
+        context: analytics.context
+      });
     }
   };
 

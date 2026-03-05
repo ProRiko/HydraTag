@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { Button } from "@/components/Button";
-import { labelSizes, printingOptions } from "@/lib/data";
+import { cms } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -15,13 +15,16 @@ const pricingModel = [
   { label: "1000+ labels", price: "Tiered wholesale" }
 ];
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const [labelSizes, printingOptions] = await Promise.all([cms.getLabelSizes(), cms.getPrintingOptions()]);
+
   return (
     <div className="space-y-16 pb-24">
       <SectionWrapper
         eyebrow="Services"
         title="Boutique hydration branding"
         description="From 250 ml welcome bottles to 1 L VIP pours, every label is engineered for waterproof performance, tactile finishes, and consistent color."
+        analyticsId="services-grid"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {labelSizes.map((size) => (
@@ -40,6 +43,7 @@ export default function ServicesPage() {
         eyebrow="Production"
         title="Waterproof vinyl printing"
         description="Created to thrive through ice buckets, long ceremonies, and humid kitchens."
+        analyticsId="production"
       >
         <div className="grid gap-6 md:grid-cols-2">
           {printingOptions.map((option) => (
@@ -62,6 +66,7 @@ export default function ServicesPage() {
         eyebrow="Pricing"
         title="Transparent pricing, scalable savings"
         description="Every quote includes design collaboration, waterproof vinyl, trimming, and packing. Shipping is calculated based on location."
+        analyticsId="pricing"
       >
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-brand-deep/10 bg-white p-6 shadow-sm">
@@ -88,7 +93,12 @@ export default function ServicesPage() {
           </div>
         </div>
         <div className="mt-8 text-right">
-          <Button href="/contact">Request tailored quote</Button>
+          <Button
+            href="/contact"
+            analytics={{ category: "engagement", action: "contact_click", label: "services_pricing", eventId: "services-contact" }}
+          >
+            Request tailored quote
+          </Button>
         </div>
       </SectionWrapper>
 
@@ -96,6 +106,7 @@ export default function ServicesPage() {
         eyebrow="Support"
         title="Custom design service"
         description="Send us your crest, campaign key visual, or Pinterest board. Our studio will iterate and prep press-ready files."
+        analyticsId="support"
       >
         <div className="rounded-3xl border border-brand-deep/10 bg-white p-8 shadow-sm">
           <ul className="space-y-3 text-sm text-brand-deep/80">
@@ -105,7 +116,11 @@ export default function ServicesPage() {
             <li>• File library for your internal design teams</li>
           </ul>
           <div className="mt-8">
-            <Button href="/portfolio" variant="ghost">
+            <Button
+              href="/portfolio"
+              variant="ghost"
+              analytics={{ category: "engagement", action: "view_portfolio", label: "services_support", eventId: "services-portfolio" }}
+            >
               View sample deliverables
             </Button>
           </div>

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { eventTypes, siteConfig } from "@/lib/constants";
 import { quoteBottleOptions } from "@/lib/data";
-import { trackEvent } from "@/lib/analytics";
+import { postStudioEvent, trackEvent } from "@/lib/analytics";
 import { Button } from "./Button";
 
 const BASE_PRICE = 6;
@@ -56,6 +56,7 @@ export function QuoteCalculator() {
         if (entries[0]?.isIntersecting) {
           hasTrackedView.current = true;
           trackEvent("engagement", "pricing_section_viewed", "quote_calculator");
+          postStudioEvent({ eventId: "quote-calculator-view", category: "engagement", action: "pricing_section_viewed", type: "view" });
           observer.disconnect();
         }
       },
@@ -73,6 +74,14 @@ export function QuoteCalculator() {
     )}. Can you confirm availability?`;
     trackEvent("quote", "quote_calculated", `${size}-${eventType}`, total);
     trackEvent("engagement", "whatsapp_click", "quote_calculator");
+    postStudioEvent({
+      eventId: `quote-${size}-${eventType}`,
+      category: "quote",
+      action: "quote_calculated",
+      value: total,
+      label: `${size}-${eventType}`
+    });
+    postStudioEvent({ eventId: "quote-calculator-whatsapp", category: "engagement", action: "whatsapp_click" });
     window.open(`${siteConfig.whatsapp}?text=${encodeURIComponent(text)}`, "_blank");
   };
 

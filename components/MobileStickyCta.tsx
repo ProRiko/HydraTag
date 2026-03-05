@@ -8,7 +8,7 @@ export function MobileStickyCta() {
         <Button
           href="#instant-quote"
           className="flex-1 justify-center text-base"
-          analytics={{ category: "engagement", action: "mobile_cta_quote" }}
+          analytics={{ category: "engagement", action: "mobile_cta_quote", eventId: "mobile-cta-quote" }}
         >
           Get Instant Quote
         </Button>
@@ -18,7 +18,7 @@ export function MobileStickyCta() {
           rel="noreferrer"
           variant="secondary"
           className="flex-1 justify-center text-base"
-          analytics={{ category: "engagement", action: "mobile_cta_whatsapp" }}
+          analytics={{ category: "engagement", action: "mobile_cta_whatsapp", eventId: "mobile-cta-whatsapp" }}
         >
           WhatsApp
         </Button>

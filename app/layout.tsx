@@ -109,6 +109,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <body className="relative bg-[#050f1c] text-white antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         {GA_MEASUREMENT_ID && (
           <>
             <Script
@@ -130,7 +133,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div aria-hidden className="noise-overlay" />
         <div className="relative z-10 flex min-h-screen flex-col">
           <Navbar />
-          <main className="flex-1">
+          <main id="main-content" className="flex-1" role="main">
             <Suspense fallback={null}>
               <AnalyticsTracker />
             </Suspense>

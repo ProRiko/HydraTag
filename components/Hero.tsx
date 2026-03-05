@@ -35,7 +35,12 @@ export function Hero() {
             business days for Kolkata and pan-India deliveries.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button href="#instant-quote" variant="primary" className="btn-glow">
+            <Button
+              href="#instant-quote"
+              variant="primary"
+              className="btn-glow"
+              analytics={{ category: "engagement", action: "cta_click", label: "hero_instant_quote", eventId: "hero-quote" }}
+            >
               Get Instant Quote
             </Button>
             <Button
@@ -43,7 +48,7 @@ export function Hero() {
               variant="secondary"
               target="_blank"
               rel="noreferrer"
-              analytics={{ category: "engagement", action: "whatsapp_click", label: "hero_whatsapp" }}
+              analytics={{ category: "engagement", action: "whatsapp_click", label: "hero_whatsapp", eventId: "hero-whatsapp" }}
             >
               Chat on WhatsApp
             </Button>
@@ -60,19 +65,21 @@ export function Hero() {
           transition={{ delay: 0.1, duration: 0.6 }}
         >
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">Trusted by Kolkata hosts</p>
-          <div className="mt-6 space-y-6 text-white/90">
+          <ul className="mt-6 space-y-6 text-white/90">
             {[
               "Heritage weddings needing monogrammed keepsakes",
               "Chef-driven tasting menus with QR-enabled storytelling",
               "Corporate summits demanding on-brand hydration",
               "Private soirées and milestone birthdays"
             ].map((item) => (
-              <div key={item} className="flex items-start gap-4">
-                <span className="mt-1 h-10 w-10 rounded-full border border-white/30 text-center text-lg leading-10">•</span>
+              <li key={item} className="flex items-start gap-4">
+                <span className="mt-1 h-10 w-10 rounded-full border border-white/30 text-center text-lg leading-10" aria-hidden>
+                  •
+                </span>
                 <p>{item}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
           <div className="mt-8 rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-sm text-white/80">
             <p className="font-semibold text-white">WhatsApp-first studio</p>
             <p className="mt-1">Live proofs, delivery tracking, and approvals happen on your preferred channel.</p>

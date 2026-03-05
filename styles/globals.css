@@ -34,6 +34,23 @@ body {
   color: #eef6ff;
 }
 
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 0.5rem 1rem;
+  background: #00b4d8;
+  color: #030b16;
+  border-radius: 999px;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+  z-index: 999;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 img,
 video {
   max-width: 100%;

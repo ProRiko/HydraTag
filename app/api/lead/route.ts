@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { storeEngagementEvent, storeLeadRecord } from "@/lib/analyticsStore";
 
 interface LeadPayload {
   name: string;
@@ -67,7 +68,23 @@ export async function POST(request: Request) {
     status: "pending-persistence"
   });
 
-  // Placeholder: Persist to MongoDB or CRM here when credentials are available.
+  try {
+    await Promise.all([
+      storeLeadRecord({ ...sanitizedPayload, pagePath: request.headers.get("referer") ?? undefined }),
+      storeEngagementEvent({
+        eventId: `lead-${Date.now()}`,
+        category: "lead",
+        action: "form_submitted",
+        label: sanitizedPayload.eventType,
+        value: sanitizedPayload.quantity,
+        type: "click",
+        pagePath: request.headers.get("referer") ?? undefined,
+        userAgent: request.headers.get("user-agent")
+      })
+    ]);
+  } catch (error) {
+    console.warn("[HydraTag Lead Queue] persistence fallback", error);
+  }
 
   return NextResponse.json({ success: true });
 }

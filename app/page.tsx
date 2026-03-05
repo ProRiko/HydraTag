@@ -6,18 +6,28 @@ import { Button } from "@/components/Button";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
 import { FaqSection } from "@/components/FaqSection";
 import { siteConfig } from "@/lib/constants";
-import {
-  authorityHighlights,
-  faqItems,
-  howItWorks,
-  labelSizes,
-  portfolioItems,
-  services,
-  testimonials,
-  trustPoints
-} from "@/lib/data";
+import { cms } from "@/lib/cms";
+import { howItWorks } from "@/lib/data";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [
+    services,
+    authorityHighlights,
+    labelSizes,
+    trustPoints,
+    portfolioItems,
+    testimonials,
+    faqItems
+  ] = await Promise.all([
+    cms.getServices(),
+    cms.getAuthorityHighlights(),
+    cms.getLabelSizes(),
+    cms.getTrustPoints(),
+    cms.getPortfolioItems(),
+    cms.getTestimonials(),
+    cms.getFaqItems()
+  ]);
+
   return (
     <div className="space-y-24 pb-24">
       <div className="container pt-12">
@@ -29,10 +39,11 @@ export default function HomePage() {
         title="Trusted Branding Partner for Events Across Kolkata"
         description="HydraTag Studio is a professional micro-branding partner focused on waterproof bottle label printing for weddings, restaurants, and corporate events that need concierge-level detail."
         tone="secondary"
+        analyticsId="authority"
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {authorityHighlights.map((highlight) => (
-            <div
+            <article
               key={highlight.title}
               className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 text-white shadow-lg backdrop-blur-lg"
             >
@@ -43,7 +54,7 @@ export default function HomePage() {
                 <p className="text-base font-semibold">{highlight.title}</p>
                 <p className="mt-1 text-sm text-white/70">{highlight.description}</p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </SectionWrapper>
@@ -54,6 +65,7 @@ export default function HomePage() {
         title="WhatsApp-ready quote calculator"
         description="Choose your bottle size, share a quantity, and see transparent pricing before you message the studio."
         tone="primary"
+        analyticsId="quote-calculator"
       >
         <QuoteCalculator />
       </SectionWrapper>
@@ -64,6 +76,7 @@ export default function HomePage() {
         title="Custom bottle branding for every moment"
         description="Layered concepts, premium materials, and on-brand detailing for weddings, restaurants, corporate events, and private milestones."
         tone="secondary"
+        analyticsId="services"
       >
         <div className="grid gap-6 md:grid-cols-2">
           {services.map((service, index) => (
@@ -78,14 +91,15 @@ export default function HomePage() {
         title="A boutique studio workflow"
         description="We pair craft-level print techniques with concierge-level project management."
         tone="primary"
+        analyticsId="process"
       >
         <div className="grid gap-8 md:grid-cols-3">
           {howItWorks.map((step) => (
-            <div key={step.number} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
+            <article key={step.number} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
               <span className="text-sm font-semibold text-[#00B4D8]">{step.number}</span>
               <h3 className="mt-4 text-lg font-semibold">{step.title}</h3>
               <p className="mt-3 text-sm text-slate-300">{step.description}</p>
-            </div>
+            </article>
           ))}
         </div>
       </SectionWrapper>
@@ -95,16 +109,17 @@ export default function HomePage() {
         title="Three bottle sizes. Endless narratives."
         description="Waterproof vinyl, invisible seams, and meticulously aligned trims that feel as good as they look."
         tone="secondary"
+        analyticsId="label-architectures"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {labelSizes.map((size) => (
-            <div key={size.name} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
+            <article key={size.name} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
               <p className="text-xs uppercase tracking-[0.3em] text-[#00B4D8]">{size.volume}</p>
               <h3 className="mt-3 text-xl font-semibold">{size.name}</h3>
               <p className="mt-4 text-sm text-slate-300">{size.description}</p>
               <p className="mt-6 text-sm font-semibold">{size.startingPrice}</p>
               <p className="text-xs uppercase tracking-[0.2em] text-slate-300">{size.bestFor}</p>
-            </div>
+            </article>
           ))}
         </div>
       </SectionWrapper>
@@ -114,10 +129,11 @@ export default function HomePage() {
         title="Local production partner Kolkata planners rely on"
         description="Every order includes tactile materials, concierge-level communication, and future-ready files."
         tone="primary"
+        analyticsId="trust-points"
       >
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map((point) => (
-            <div
+            <article
               key={point.title}
               className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left text-white shadow-lg backdrop-blur-md transition-transform duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
             >
@@ -126,7 +142,7 @@ export default function HomePage() {
               </span>
               <h3 className="mt-4 text-lg font-semibold">{point.title}</h3>
               <p className="mt-3 text-sm text-slate-300">{point.description}</p>
-            </div>
+            </article>
           ))}
         </div>
       </SectionWrapper>
@@ -136,10 +152,11 @@ export default function HomePage() {
         title="Recent pours & poursuits"
         description="A quick look at weddings, chef tables, and summits we have hydrated."
         tone="secondary"
+        analyticsId="portfolio"
       >
         <PortfolioGrid items={portfolioItems} />
         <div className="mt-8 text-right">
-          <Button href="/portfolio" variant="secondary">
+          <Button href="/portfolio" variant="secondary" analytics={{ category: "engagement", action: "view_portfolio", eventId: "portfolio-cta" }}>
             View Full Portfolio
           </Button>
         </div>
@@ -150,14 +167,15 @@ export default function HomePage() {
         title="Attention to detail noticed by guests"
         description="From intimate affairs to corporate summits, teams lean on HydraTag for elevated hydration touchpoints."
         tone="primary"
+        analyticsId="testimonials"
       >
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.author} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
+            <article key={testimonial.author} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white shadow-lg backdrop-blur-md">
               <p className="text-base text-slate-200">“{testimonial.quote}”</p>
               <p className="mt-4 text-sm font-semibold">{testimonial.author}</p>
               <p className="text-xs uppercase tracking-[0.2em] text-slate-300">{testimonial.role}</p>
-            </div>
+            </article>
           ))}
         </div>
       </SectionWrapper>
@@ -167,11 +185,12 @@ export default function HomePage() {
         title="Answers for planners on a deadline"
         description="Quick clarity on waterproof materials, order minimums, and delivery timelines so you can confirm HydraTag Studio as your bottle branding partner."
         tone="secondary"
+        analyticsId="faq"
       >
         <FaqSection items={faqItems} />
       </SectionWrapper>
 
-      <SectionWrapper className="pt-0" tone="secondary">
+      <SectionWrapper className="pt-0" tone="secondary" analyticsId="cta">
         <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0c2342] via-[#081530] to-[#030b1c] px-8 py-16 text-white shadow-2xl">
           <div className="floating-shape -left-20 top-0 h-64 w-64 bg-[#00B4D8]/25" />
           <div className="floating-shape bottom-0 right-0 h-64 w-64 bg-white/10" />
@@ -184,7 +203,7 @@ export default function HomePage() {
             </p>
             <div className="mt-8">
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Button href="/contact" variant="secondary">
+                <Button href="/contact" variant="secondary" analytics={{ category: "engagement", action: "cta_click", label: "contact", eventId: "cta-contact" }}>
                   Get Quote
                 </Button>
                 <Button
@@ -192,7 +211,7 @@ export default function HomePage() {
                   variant="primary"
                   target="_blank"
                   rel="noreferrer"
-                  analytics={{ category: "engagement", action: "whatsapp_click", label: "cta_whatsapp" }}
+                  analytics={{ category: "engagement", action: "whatsapp_click", label: "cta_whatsapp", eventId: "cta-whatsapp" }}
                 >
                   Chat on WhatsApp
                 </Button>

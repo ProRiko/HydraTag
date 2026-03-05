@@ -11,7 +11,7 @@ const footerMeta = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#030b16] text-white">
+    <footer className="border-t border-white/10 bg-[#030b16] text-white" role="contentinfo">
       <div className="container grid gap-12 py-16 lg:grid-cols-[1.2fr_0.9fr_1fr]">
         <div>
           <p className="text-xl font-semibold">{siteConfig.name}</p>
@@ -36,13 +36,13 @@ export function Footer() {
         </div>
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-white/50">Navigate</p>
-          <div className="mt-3 grid gap-2 text-sm text-white/80">
+          <nav className="mt-3 grid gap-2 text-sm text-white/80" aria-label="Footer">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="hover:text-white">
                 {link.label}
               </Link>
             ))}
-          </div>
+          </nav>
           <p className="mt-6 text-xs uppercase tracking-[0.25em] text-white/50">Connect</p>
           <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/80">
             <Link href={siteConfig.whatsapp} target="_blank" rel="noreferrer" className="rounded-full border border-white/15 px-4 py-1.5 hover:border-white/40">
