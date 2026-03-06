@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test:e2e": "playwright test",
-    "test:perf": "lhci autorun",
-    "test:ci": "start-server-and-test dev http://localhost:3000 \"pnpm test:e2e && pnpm test:perf\""
+    "lhci": "lhci autorun",
+    "ci:test": "start-server-and-test start http://localhost:3000 test:e2e"
   },
   "dependencies": {
     "@sanity/client": "^7.16.0",
