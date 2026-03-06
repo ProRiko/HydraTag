@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test:e2e": "playwright test",
-    "lhci": "lhci autorun",
+    "lhci": "lhci autorun --config=./lighthouserc.json",
     "ci:test": "start-server-and-test start http://localhost:3000 test:e2e"
   },
   "dependencies": {
