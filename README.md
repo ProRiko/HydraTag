@@ -61,6 +61,9 @@ pnpm start
 | `SUPABASE_SERVICE_ROLE_KEY` | Recommended | Service role key for server inserts |
 | `ADMIN_DASHBOARD_USER` | Optional | Username for basic-auth protecting `/admin/*` |
 | `ADMIN_DASHBOARD_PASSWORD` | Optional | Password counterpart |
+| `RESEND_API_KEY` | Required for contact form | API key used by `/api/contact` to send notifications |
+| `RESEND_FROM_EMAIL` | Optional | Custom from/sender identity for contact emails |
+| `CONTACT_NOTIFICATION_EMAIL` | Optional | Destination inbox for new inquiries |
 
 ### Supabase Schema
 

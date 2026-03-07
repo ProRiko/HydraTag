@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { StickyCTA } from "@/components/StickyCTA";
 import { contactDetails, siteConfig } from "@/lib/constants";
 import { GA_MEASUREMENT_ID } from "@/lib/analytics";
 import { Suspense } from "react";
@@ -142,7 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="md:hidden h-24" aria-hidden />
           <Footer />
         </div>
-        <MobileStickyCta />
+        <StickyCTA />
         <Script id="hydratag-localbusiness" type="application/ld+json">
           {JSON.stringify(structuredData)}
         </Script>

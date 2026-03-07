@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { eventTypes, siteConfig } from "@/lib/constants";
-import { trackEvent } from "@/lib/analytics";
+import { postStudioEvent, trackEvent } from "@/lib/analytics";
 import { Button } from "./Button";
 
 interface ContactFormValues {
@@ -27,6 +27,7 @@ export function ContactForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
 
   const inputClasses =
     "mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-brand-aqua focus:outline-none focus:ring-2 focus:ring-brand-aqua/40";
@@ -35,6 +36,8 @@ export function ContactForm() {
 
   const onSubmit = async (values: ContactFormValues) => {
     setServerError(null);
+    setServerMessage(null);
+    setSubmitted(false);
     const payload = {
       ...values,
       name: sanitizeInput(values.name),
@@ -46,22 +49,34 @@ export function ContactForm() {
     };
 
     try {
-      const response = await fetch("/api/lead", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) {
-        throw new Error("Lead capture failed");
+      const result = await response.json().catch(() => ({ success: false, error: "Server error" }));
+
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.error ?? "Submission failed. Please try WhatsApp.");
       }
 
-      trackEvent("lead", "form_submitted", payload.eventType);
+      trackEvent("contact", "form_submitted", payload.eventType, payload.quantity);
+      postStudioEvent({
+        eventId: `contact-${Date.now()}`,
+        category: "contact",
+        action: "form_submitted",
+        label: payload.eventType,
+        value: payload.quantity,
+        context: payload.contactMethod
+      });
       setSubmitted(true);
+      setServerMessage(result?.message ?? "Thank you! The studio will respond within one business day.");
       reset({ contactMethod: "WhatsApp" });
     } catch (error) {
-      console.error("Lead submission error", error);
-      setServerError("Something went wrong. Please retry or message us on WhatsApp.");
+      console.error("Contact submission error", error);
+      const fallbackMessage = error instanceof Error ? error.message : "Something went wrong. Please retry or WhatsApp us.";
+      setServerError(fallbackMessage);
     }
   };
 
@@ -174,11 +189,7 @@ export function ContactForm() {
 
         {serverError && <p className="text-center text-sm text-red-400">{serverError}</p>}
 
-        {submitted && (
-          <p className="text-center text-sm text-white/80">
-            Thank you! The studio will respond within one business day.
-          </p>
-        )}
+        {submitted && serverMessage && <p className="text-center text-sm text-white/80">{serverMessage}</p>}
       </form>
 
       <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-sm text-white/75 backdrop-blur-xl">
