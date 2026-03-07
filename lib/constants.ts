@@ -73,7 +73,7 @@ export const siteConfig = {
   tagline: "Brand Every Drop.",
   description: "Premium custom water bottle label branding studio based in Kolkata, India.",
   url: "https://hydratag.studio",
-  whatsapp: "https://wa.me/919999999999",
+  whatsapp: "https://wa.me/918100571194",
   instagram: "https://instagram.com/hydratagstudio",
   city: "Kolkata",
   region: "West Bengal",
@@ -95,9 +95,9 @@ export const navLinks: NavLink[] = [
 export const eventTypes = ["Wedding", "Restaurant", "Corporate", "Birthday", "Private", "Other"];
 
 export const contactDetails = {
-  email: "hello@hydratag.studio",
-  phone: "+91 98300 00000",
+  email: "reebhu2602@gmail.com",
+  phone: "+91 81005 71194",
   address: "Kolkata, India",
-  whatsappNumber: "+91 98300 00000",
+  whatsappNumber: "+91 81005 71194",
   hours: "Mon–Sat · 10am – 7pm IST"
 };
