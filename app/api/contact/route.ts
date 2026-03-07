@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 import { contactDetails } from "@/lib/constants";
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "HydraTag Studio <studio@hydratag.studio>";
 const CONTACT_NOTIFICATION_EMAIL = process.env.CONTACT_NOTIFICATION_EMAIL ?? contactDetails.email;
-const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 5;
@@ -107,31 +106,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: validationErrors.join(" ") }, { status: 422 });
   }
 
-  if (!RESEND_API_KEY) {
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  if (!resendApiKey) {
+    console.error("[HydraTag Contact] Missing RESEND_API_KEY env variable");
     return NextResponse.json({ success: false, error: "Email service is not configured." }, { status: 500 });
   }
 
-  const requestBody = {
+  const resend = new Resend(resendApiKey);
+  const emailResponse = await resend.emails.send({
     from: RESEND_FROM_EMAIL,
     to: [CONTACT_NOTIFICATION_EMAIL],
-    reply_to: sanitizedPayload.email,
+    replyTo: sanitizedPayload.email,
     subject: `New inquiry from ${sanitizedPayload.name}`,
     html: buildHtmlMessage(sanitizedPayload),
     text: buildTextMessage(sanitizedPayload)
-  };
-
-  const emailResponse = await fetch(RESEND_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${RESEND_API_KEY}`
-    },
-    body: JSON.stringify(requestBody)
   });
 
-  if (!emailResponse.ok) {
-    const error = await emailResponse.json().catch(() => null);
-    console.error("[HydraTag Contact] Resend error", error ?? emailResponse.statusText);
+  if (emailResponse.error) {
+    console.error("[HydraTag Contact] Resend error", emailResponse.error);
     return NextResponse.json({ success: false, error: "We couldn't send your request. Please try WhatsApp." }, { status: 502 });
   }
 
