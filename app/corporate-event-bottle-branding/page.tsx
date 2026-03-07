@@ -27,6 +27,21 @@ const stats = [
   { title: "7", subtitle: "city coverage", description: "Partner logistics beyond Kolkata when needed." }
 ];
 
+const faqs = [
+  {
+    question: "Can procurement issue POs and GST invoices?",
+    answer: "Yes. We onboard as a vendor, share GST-compliant invoices, and align with your PO / GRN workflow before production."
+  },
+  {
+    question: "Do you support QR or NFC tracking for campaigns?",
+    answer: "Every label can include a unique QR, NFC chip, or short link with UTM parameters so marketing teams can measure engagement."
+  },
+  {
+    question: "How do deliveries work for IT parks or multi-session events?",
+    answer: "Cartons are serialized per breakout room with pallet IDs so facility teams can drop them at the right bay without guesswork."
+  }
+];
+
 export const metadata: Metadata = {
   title: "Corporate Event Bottle Branding in Kolkata",
   description:
@@ -59,6 +74,28 @@ export default function CorporateBottleBrandingPage() {
     audience: "Corporate marketing, HR, and events teams",
     url: pageUrl,
     description: metadata.description
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+      { "@type": "ListItem", position: 2, name: "Corporate bottle branding", item: pageUrl }
+    ]
   };
 
   return (
@@ -120,8 +157,25 @@ export default function CorporateBottleBrandingPage() {
         </div>
       </SectionWrapper>
 
+      <SectionWrapper title="Ops FAQ for enterprise teams" description="Fast answers we send to procurement and event leads.">
+        <div className="space-y-4">
+          {faqs.map((faq) => (
+            <article key={faq.question} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
+              <h3 className="text-base font-semibold text-white">{faq.question}</h3>
+              <p className="mt-2 text-slate-300">{faq.answer}</p>
+            </article>
+          ))}
+        </div>
+      </SectionWrapper>
+
       <Script id="schema-corporate-branding" type="application/ld+json">
         {JSON.stringify(schema)}
+      </Script>
+      <Script id="schema-corporate-faq" type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </Script>
+      <Script id="schema-corporate-breadcrumbs" type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
       </Script>
     </div>
   );

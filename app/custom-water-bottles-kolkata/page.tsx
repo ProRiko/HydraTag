@@ -48,6 +48,21 @@ const bottlePackages = [
   }
 ];
 
+const faqs = [
+  {
+    question: "How fast can custom bottles be delivered across Kolkata?",
+    answer: "Standard runs ship in 3–5 working days. Rush jobs are available with a dedicated rider inside city limits once proofs are approved."
+  },
+  {
+    question: "Can you match my brand Pantone and typography?",
+    answer: "Yes. Share brand guidelines or invitation files and the studio recreates palettes, type stacks, and iconography before preflight."
+  },
+  {
+    question: "Do you offer QR codes or NFC for digital menus?",
+    answer: "Every package includes QR-ready artwork. NFC or serialized URLs can be added for lead capture or menu journeys."
+  }
+];
+
 export const metadata: Metadata = {
   title: "Custom Water Bottle Labels in Kolkata",
   description:
@@ -85,6 +100,28 @@ export default function CustomWaterBottlesPage() {
       price: "4200",
       availability: "https://schema.org/InStock"
     }
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+      { "@type": "ListItem", position: 2, name: "Custom water bottles", item: pageUrl }
+    ]
   };
 
   return (
@@ -147,8 +184,28 @@ export default function CustomWaterBottlesPage() {
         </div>
       </SectionWrapper>
 
+      <SectionWrapper
+        title="Questions we get from Kolkata venues"
+        description="A quick FAQ captured from concierge chats so planners can move faster."
+      >
+        <div className="space-y-4">
+          {faqs.map((faq) => (
+            <article key={faq.question} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
+              <h3 className="text-base font-semibold text-white">{faq.question}</h3>
+              <p className="mt-2 text-slate-300">{faq.answer}</p>
+            </article>
+          ))}
+        </div>
+      </SectionWrapper>
+
       <Script id="schema-custom-water" type="application/ld+json">
         {JSON.stringify(schema)}
+      </Script>
+      <Script id="schema-custom-water-faq" type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </Script>
+      <Script id="schema-custom-water-breadcrumbs" type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
       </Script>
     </div>
   );

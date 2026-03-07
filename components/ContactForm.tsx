@@ -81,7 +81,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-2xl">
+    <div id="contact-form" className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-2xl">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <label className="text-sm font-medium text-white/80">Name *</label>

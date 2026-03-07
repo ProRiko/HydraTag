@@ -31,6 +31,21 @@ const hospitalityExtras = [
   "Dedicated WhatsApp group with the design team"
 ];
 
+const faqs = [
+  {
+    question: "Can you coordinate with my invitation designer?",
+    answer: "Yes—share artwork files or introduce us to your design partner. We match foil, emboss, and typography so bottles mirror the full stationery suite."
+  },
+  {
+    question: "Do you ship to resorts outside Kolkata?",
+    answer: "We manage packaging for road or air cargo and label each carton per ceremony so resort planners can set up easily across cities."
+  },
+  {
+    question: "What if there are last-minute guest count changes?",
+    answer: "We hold a buffer of blank labels and can reprint initials within 24 hours for emergency top-ups."
+  }
+];
+
 export const metadata: Metadata = {
   title: "Wedding Water Bottle Labels in Kolkata",
   description:
@@ -66,6 +81,28 @@ export default function WeddingWaterBottlesPage() {
     },
     url: pageUrl,
     description: metadata.description
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+      { "@type": "ListItem", position: 2, name: "Wedding water bottles", item: pageUrl }
+    ]
   };
 
   return (
@@ -126,8 +163,25 @@ export default function WeddingWaterBottlesPage() {
         </div>
       </SectionWrapper>
 
+      <SectionWrapper title="Planner FAQ" description="Rapid-fire answers we text most often before approvals.">
+        <div className="space-y-4">
+          {faqs.map((faq) => (
+            <article key={faq.question} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
+              <h3 className="text-base font-semibold text-white">{faq.question}</h3>
+              <p className="mt-2 text-slate-300">{faq.answer}</p>
+            </article>
+          ))}
+        </div>
+      </SectionWrapper>
+
       <Script id="schema-wedding-water" type="application/ld+json">
         {JSON.stringify(schema)}
+      </Script>
+      <Script id="schema-wedding-faq" type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </Script>
+      <Script id="schema-wedding-breadcrumbs" type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
       </Script>
     </div>
   );

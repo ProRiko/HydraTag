@@ -29,6 +29,11 @@ export type PrintingOption = {
   points: string[];
 };
 
+export type PortfolioMetric = {
+  label: string;
+  value: string;
+};
+
 export type PortfolioItem = {
   id: string;
   title: string;
@@ -38,6 +43,10 @@ export type PortfolioItem = {
   eventType: string;
   quantity: number;
   clientType: string;
+  deliverables?: string[];
+  palette?: string[];
+  metrics?: PortfolioMetric[];
+  testimonial?: string;
 };
 
 export type TrustPoint = {

@@ -65,6 +65,14 @@ pnpm start
 | `RESEND_FROM_EMAIL` | Optional | Custom from/sender identity for contact emails |
 | `CONTACT_NOTIFICATION_EMAIL` | Optional | Destination inbox for new inquiries |
 
+> `.env.local` is gitignored—keep all secrets there locally and mirror the same values inside your hosting provider (Vercel → Project Settings → Environment Variables).
+
+### Email & Security Checklist
+
+- Verify the Resend domain you want to send from (e.g. `hydratag.studio`) under [https://resend.com/domains](https://resend.com/domains) before switching the `RESEND_FROM_EMAIL` to that identity. Until verification passes, use Resend’s default onboarding address.
+- After updating env vars in production, trigger a redeploy so the new keys load. Watch the function logs for `[HydraTag Contact]` entries to confirm success.
+- Never commit `.env.local` or actual API keys—use the provided `.env.example` as the reference file for new developers.
+
 ### Supabase Schema
 
 Create two tables and one RPC helper:
